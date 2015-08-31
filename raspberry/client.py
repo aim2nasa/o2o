@@ -1,5 +1,6 @@
 #create JSON-RPC client
 import jsonrpc
+import time
 
 server = jsonrpc.ServerProxy(
 		jsonrpc.JsonRpc20(),
@@ -8,3 +9,12 @@ server = jsonrpc.ServerProxy(
 #call a remote-procedure (with positional parameters)
 print server.echo("hello world")
 print server.ip()
+
+print "recording start"
+result = server.recbegin()
+print result
+
+time.sleep(10)
+
+print "recording end"
+print server.recend()

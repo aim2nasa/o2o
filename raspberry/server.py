@@ -14,9 +14,17 @@ def echo(s):
 def ip():
 	return subprocess.check_output('./ip.sh',shell=True)	
 
+def recbegin():
+	return subprocess.check_output('./recBegin.sh',shell=True)	
+
+def recend():
+	return subprocess.check_output('./recEnd.sh',shell=True)	
+
 #register procedures so they can be called via RPC
 server.register_function(echo)
 server.register_function(ip)
+server.register_function(recbegin)
+server.register_function(recend)
 
 #start server
 server.serve()
