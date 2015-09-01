@@ -7,12 +7,12 @@ import subprocess
 
 server = jsonrpc.Server(
 		jsonrpc.JsonRpc20(),
-		jsonrpc.TransportTcpIp(addr=("127.0.0.1",7000),
+		jsonrpc.TransportTcpIp(addr=("127.0.0.1",7001),
 		logfunc=jsonrpc.log_file("log")) )
 
 #define procedures
 def echo(s):
-    return 'ans='+s
+    return s
 
 def ip():
 	return subprocess.check_output('./ip.sh',shell=True)	
