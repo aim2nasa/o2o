@@ -51,12 +51,52 @@ def setup():
 
 	print "setup ok"
 
+def rstart(path):
+	print "record..."	
+	i=1
+	for k,v in children.items():
+		print i,"-activate recording(ip:",k,",port:",ports[k],")"
+		try:
+			rep=children[k].recbegin()
+			print "resonse(from ip:",k,",port:",ports[k],"):",rep[0]
+			if rep[0]=='0':
+				print " >recording started"
+			else:
+				print " >failed to start recording(",rep[0],")"
+				return
+		except Exception,err:
+			print " >failed to start recording,exception:",err
+			return
+		i+=1
+	print "record ok"
+
+def rstop():
+	print "stop..."	
+	i=1
+	for k,v in children.items():
+		print i,"-stopping(ip:",k,",port:",ports[k],")"
+		try:
+			rep=children[k].recend()
+			print "resonse(from ip:",k,",port:",ports[k],"):",rep[0]
+			if rep[0]=='0':
+				print " >recording stopped"
+			else:
+				print " >failed to stop recording(",rep[0],")"
+				return
+		except Exception,err:
+			print " >failed to stopt recording,exception:",err
+			return
+		i+=1
+	print "stop ok"
+
 #register procedures so they can be called via RPC
 server.register_function(echo)
 server.register_function(add)
 server.register_function(child)
 server.register_function(port)
 server.register_function(setup)
+server.register_function(rstart)
+server.register_function(rstop)
 
 #start server
 server.serve()
