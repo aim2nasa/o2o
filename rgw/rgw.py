@@ -6,6 +6,7 @@ import jsonrpc
 import subprocess
 
 children={}
+ports={}
 
 server = jsonrpc.Server(
                 jsonrpc.JsonRpc20(),
@@ -22,10 +23,14 @@ def add(ip,port):
                 jsonrpc.TransportTcpIp(addr=(ip,port)) )
 
 	children[ip]=rasp;
+	ports[ip]=port
 	print "add ip:",ip,",port:",port
 
 def child():
 	return children.keys() 
+
+def port():
+	return ports 
 
 def setup():
 	print "setup..."
@@ -50,6 +55,7 @@ def setup():
 server.register_function(echo)
 server.register_function(add)
 server.register_function(child)
+server.register_function(port)
 server.register_function(setup)
 
 #start server
