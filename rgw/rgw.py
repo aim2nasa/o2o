@@ -36,13 +36,13 @@ def setup():
 	print "setup..."
 	i=1
 	for k,v in children.items():
-		print i,"-echo testing system of ip:",k
+		print i,"-echo testing system of ip:",k,",port:",ports[k]
 		try:
 			rep=children[k].echo("hello")
 			if rep=="hello":
-				print " >ip:",k,"echo ok"
+				print " >ip:",k,",port:",ports[k],",echo ok"
 			else:
-				print " >ip:",k,"echo failed"
+				print " >ip:",k,",port:",ports[k],",echo unexpected message"
 		except Exception,err:
 			print " >exception:",err
 			print "setup failed"
