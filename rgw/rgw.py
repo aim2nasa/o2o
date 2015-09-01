@@ -24,8 +24,8 @@ def add(ip,port):
 	children[ip]=rasp;
 	print "add ip:",ip,",port:",port
 
-def show():
-	return children 
+def child():
+	return children.keys() 
 
 def setup():
 	print "setup..."
@@ -40,13 +40,16 @@ def setup():
 				print " >ip:",k,"echo failed"
 		except Exception,err:
 			print " >exception:",err
+			print "setup failed"
+			return
 		i+=1
-	print "setup done"
+
+	print "setup ok"
 
 #register procedures so they can be called via RPC
 server.register_function(echo)
 server.register_function(add)
-server.register_function(show)
+server.register_function(child)
 server.register_function(setup)
 
 #start server

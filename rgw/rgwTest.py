@@ -12,5 +12,6 @@ server = jsonrpc.ServerProxy(
 print server.echo("hello")
 
 server.add("127.0.0.1",7001)
-server.add("127.0.0.2",7001)
+#server.add("127.0.0.2",7001)
 server.setup()
+print server.child()
