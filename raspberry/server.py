@@ -1,4 +1,7 @@
 #create a JSON-RPC server
+import sys
+sys.path.append('../rpc')
+
 import jsonrpc
 import subprocess
 

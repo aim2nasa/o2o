@@ -1,4 +1,7 @@
 #create JSON-RPC client
+import sys
+sys.path.append('../rpc')
+
 import jsonrpc
 
 server = jsonrpc.ServerProxy(
