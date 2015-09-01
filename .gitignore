@@ -1,0 +1,5 @@
+*.pyc
+raspberry/eosLog
+raspberry/log
+raspberry/output/
+rgw/log
