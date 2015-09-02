@@ -7,7 +7,7 @@ import subprocess
 
 server = jsonrpc.Server(
 		jsonrpc.JsonRpc20(),
-		jsonrpc.TransportTcpIp(addr=("127.0.0.1",7001),
+		jsonrpc.TransportTcpIp(addr=("192.168.219.124",7001),
 		logfunc=jsonrpc.log_file("log")) )
 
 #define procedures
