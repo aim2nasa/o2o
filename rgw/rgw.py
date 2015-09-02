@@ -10,7 +10,7 @@ ports={}
 
 server = jsonrpc.Server(
                 jsonrpc.JsonRpc20(),
-                jsonrpc.TransportTcpIp(addr=("127.0.0.1",7000),
+                jsonrpc.TransportTcpIp(addr=("192.168.192.254",7000),
                 logfunc=jsonrpc.log_file("log")) )
 
 #define procedures
