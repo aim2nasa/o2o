@@ -15,5 +15,7 @@ kproc video.pid
 
 mv output/a.mp3 queue
 mv output/v.mp4 queue
+nohup ./ms.sh > ms.tmp 2>ms.log& </dev/null &
+rm ms.tmp
 
 echo 0
