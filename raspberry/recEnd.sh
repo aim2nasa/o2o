@@ -13,4 +13,7 @@ function kproc(){
 kproc audio.pid
 kproc video.pid
 
+mv output/a.mp3 queue
+mv output/v.mp4 queue
+
 echo 0

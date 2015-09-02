@@ -1,5 +1,10 @@
 #!/bin/sh
 
+count=$(ls | grep queue | wc -l) 
+if [ "$count" -eq 0 ];then
+	mkdir queue 
+fi
+
 count=$(ls | grep output | wc -l) 
 if [ "$count" -eq 0 ];then
 	mkdir output
