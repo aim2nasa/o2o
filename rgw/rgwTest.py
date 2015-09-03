@@ -21,8 +21,12 @@ print server.port()
 loop=1
 while 1:
 	print "loop=",loop
-	server.rstart("/home/pi/hon/rgw")
-	time.sleep(60)
-	server.rstop()
-	time.sleep(10)
-	loop+=1
+	try:
+		server.rstart("/home/pi/hon/rgw")
+		time.sleep(10)
+		server.rstop()
+		time.sleep(2)
+		loop+=1
+	except Exception,err:
+		print "Exception:",err
+		break
