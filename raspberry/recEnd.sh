@@ -1,17 +1,20 @@
-#!/bin/bash
+#!/bin/sh
 
-function kproc(){
-  #echo "argv: $1 $2"
-  while read pid
-  do
-    #echo $pid
-    kill -2 ${pid}
-  done < $1
-  return
-}
+count=$(ps -eal|grep gst-launch-1.0|wc -l)
 
-kproc audio.pid
-kproc video.pid
+while [ "$count" -ne 0 ];do
+        ps -eal|grep gst-launch-1.0 > plist
+
+        while read F S UID PID ETC
+        do
+                #echo "${PID}"
+                kill -2 ${PID}
+        done < plist
+
+	sleep 1
+	count=$(ps -eal|grep gst-launch-1.0|wc -l)
+done
+rm plist
 
 mv output/a.mp3 queue
 mv output/v.mp4 queue
