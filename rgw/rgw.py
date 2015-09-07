@@ -4,6 +4,7 @@ sys.path.append('../rpc')
 
 import jsonrpc
 import subprocess
+import datetime
 
 children={}
 ports={}
@@ -17,6 +18,9 @@ server = jsonrpc.Server(
 def echo(s):
 	return s
 
+def log(str):
+        print datetime.datetime.now(),str
+
 def add(ip,port):
 	rasp  = jsonrpc.ServerProxy(
                 jsonrpc.JsonRpc20(),
@@ -24,7 +28,8 @@ def add(ip,port):
 
 	children[ip]=rasp;
 	ports[ip]=port
-	print "add ip:",ip,",port:",port
+	str="add ip:",ip,",port:",port
+	log(str)
 
 def child():
 	return children.keys() 
@@ -33,61 +38,73 @@ def port():
 	return ports 
 
 def setup():
-	print "setup..."
+	log("setup...")
 	i=1
 	for k,v in children.items():
-		print i,"-echo testing system of ip:",k,",port:",ports[k]
+		str=i,"-echo testing system of ip:",k,",port:",ports[k]
+		log(str)
 		try:
 			rep=children[k].echo("hello")
 			if rep=="hello":
-				print " >ip:",k,",port:",ports[k],",echo ok"
+				str=" >ip:",k,",port:",ports[k],",echo ok"
+				log(str)
 			else:
-				print " >ip:",k,",port:",ports[k],",echo unexpected message"
+				str=" >ip:",k,",port:",ports[k],",echo unexpected message"
+				log(str)
 		except Exception,err:
-			print " >exception:",err
-			print "setup failed"
+			str=" >exception:",err
+			log(str)
+			log("setup failed")
 			return
 		i+=1
 
-	print "setup ok"
+	log("setup ok")
 
 def rstart(path):
-	print "record..."	
+	log("record...")
 	i=1
 	for k,v in children.items():
-		print i,"-activate recording(ip:",k,",port:",ports[k],")"
+		str= i,"-activate recording(ip:",k,",port:",ports[k],")"
+		log(str)
 		try:
 			rep=children[k].recbegin()
-			print "resonse(from ip:",k,",port:",ports[k],"):",rep[0]
+			str="resonse(from ip:",k,",port:",ports[k],"):",rep[0]
+			log(str)
 			if rep[0]=='0':
-				print " >recording started"
+				log(" >recording started")
 			else:
-				print " >failed to start recording(",rep[0],")"
+				str=" >failed to start recording(",rep[0],")"
+				log(str)
 				return
 		except Exception,err:
-			print " >failed to start recording,exception:",err
+			str=" >failed to start recording,exception:",err
+			log(str)
 			return
 		i+=1
-	print "record ok"
+	log("record ok")
 
 def rstop():
-	print "stop..."	
+	log("stop...")
 	i=1
 	for k,v in children.items():
-		print i,"-stopping(ip:",k,",port:",ports[k],")"
+		str=i,"-stopping(ip:",k,",port:",ports[k],")"
+		log(str)
 		try:
 			rep=children[k].recend()
-			print "resonse(from ip:",k,",port:",ports[k],"):",rep[0]
+			str="resonse(from ip:",k,",port:",ports[k],"):",rep[0]
+			log(str)
 			if rep[0]=='0':
-				print " >recording stopped"
+				log(" >recording stopped")
 			else:
-				print " >failed to stop recording(",rep[0],")"
+				str=" >failed to stop recording(",rep[0],")"
+				log(str)
 				return
 		except Exception,err:
-			print " >failed to stopt recording,exception:",err
+			str=" >failed to stopt recording,exception:",err
+			log(str)
 			return
 		i+=1
-	print "stop ok"
+	log("stop ok")
 
 #register procedures so they can be called via RPC
 server.register_function(echo)
