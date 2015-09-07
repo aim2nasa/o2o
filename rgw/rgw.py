@@ -8,6 +8,7 @@ import datetime
 
 children={}
 ports={}
+tok=0
 
 server = jsonrpc.Server(
                 jsonrpc.JsonRpc20(),
@@ -61,6 +62,7 @@ def setup():
 	log("setup ok")
 
 def rstart(path):
+	global tok
 	log("record...")
 	i=1
 	for k,v in children.items():
@@ -75,13 +77,16 @@ def rstart(path):
 			else:
 				str=" >failed to start recording(",rep[0],")"
 				log(str)
-				return
+				return "ERROR:"+rep[0]
 		except Exception,err:
 			str=" >failed to start recording,exception:",err
 			log(str)
-			return
+			return "EXCEPT:"+err
 		i+=1
+
 	log("record ok")
+	tok+=1
+	return "TOK:{0}".format(tok)
 
 def rstop():
 	log("stop...")

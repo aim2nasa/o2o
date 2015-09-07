@@ -9,5 +9,5 @@ server = jsonrpc.ServerProxy(
                 jsonrpc.TransportTcpIp(addr=("192.168.219.254", 7000)) )
 
 #call a remote-procedure (with positional parameters)
-server.rstart("/home/pi/hon/rgw")
+print server.rstart("/home/pi/hon/rgw")
 print "record start"
