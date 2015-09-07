@@ -86,7 +86,11 @@ def rstart(path):
 
 	log("record ok")
 	tok+=1
-	return "TOK:{0}".format(tok)
+	resTok = "TOK:{0}".format(tok) 
+	f=open("../raspberry/output/TOK{0}".format(tok),'w')
+	f.write(resTok)
+	f.close()
+	return resTok
 
 def rstop():
 	log("stop...")

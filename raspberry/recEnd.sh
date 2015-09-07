@@ -1,23 +1,18 @@
-#!/bin/sh
+#!/bin/bash
 
-count=$(ps -eal|grep gst-launch-1.0|wc -l)
+./pk.sh
 
-while [ "$count" -ne 0 ];do
-        ps -eal|grep gst-launch-1.0 > plist
-
-        while read F S UID PID ETC
-        do
-                #echo "${PID}"
-                kill -2 ${PID}
-        done < plist
-
-	sleep 1
-	count=$(ps -eal|grep gst-launch-1.0|wc -l)
-done
 rm plist
 
-mv output/a.mp3 queue
-mv output/v.mp4 queue
+FTOKEN=$(find output -name TOK*)
+echo $FTOKEN
+TOK=${FTOKEN:10}
+echo "Token:"$TOK
+
+mv output/a.mp3 queue/${TOK}_a.mp3
+mv output/v.mp4 queue/${TOK}_v.mp4
+rm output/TOK*
+
 nohup ./ms.sh > ms.tmp 2>ms.log& </dev/null &
 rm ms.tmp
 
