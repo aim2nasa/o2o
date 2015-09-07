@@ -15,9 +15,20 @@ if [ "$count" -gt 0 ];then
 	rm output/*
 fi
 
-rm *.pid
-rm audio.log
-rm video.log
+count=$(ls *.pid | wc -l) 
+if [ "$count" -gt 0 ];then
+	rm *.pid
+fi
+
+count=$(ls audio.log | wc -l) 
+if [ "$count" -gt 0 ];then
+	rm audio.log
+fi
+
+count=$(ls video.log | wc -l) 
+if [ "$count" -gt 0 ];then
+	rm video.log
+fi
 
 cd util
 nohup gst-launch-1.0 -v alsasrc ! audioconvert ! queue ! audio/x-raw,rate=44100,channels=2 ! lamemp3enc target=bitrate bitrate=128 ! queue ! filesink location=${PWD%/*}/output/a.mp3 > ../a.log 2>&1&
