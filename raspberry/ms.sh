@@ -40,7 +40,7 @@ mv queue/${vorg} queue/${vfile}
 
 sshpass -p789456 scp -o StrictHostKeyChecking=no queue/${afile} rossi@192.168.219.254:/home/rossi/hon/rgw/av/${afile}
 sshpass -p789456 scp -o StrictHostKeyChecking=no queue/${vfile} rossi@192.168.219.254:/home/rossi/hon/rgw/av/${vfile}
-sshpass -p789456 scp -o StrictHostKeyChecking=no queue/${token} rossi@192.168.219.254:/home/rossi/hon/rgw/av/${token}
+sshpass -p789456 scp -o StrictHostKeyChecking=no queue/${token} rossi@192.168.219.254:/home/rossi/hon/rgw/av/${token}_${ip}
 
 rm queue/${afile}
 rm queue/${vfile}

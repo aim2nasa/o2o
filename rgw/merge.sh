@@ -4,6 +4,7 @@ source=$1
 echo "source folder:"$source
 
 if [ ! -d "$source" ]; then
+	echo "usage:./merge.sh <source> <target> <num of RPi>"
 	echo "source folder does not exist, abort execution"
 	exit
 fi
@@ -15,6 +16,15 @@ if [ ! -d "$target" ]; then
 	mkdir $target
 fi
 
+nrpi=$3
+echo "number of RPi:" $nrpi
+
+if [ ${#nrpi} -eq 0 ]; then
+	echo "usage:./merge.sh <source> <target> <num of RPi>"
+	echo "number of rpi(s) must be given, abort execution"
+	exit
+fi
+
 while :
 do
 	grep -I TOK ${source}/*
@@ -22,9 +32,17 @@ do
 	echo "Token:" $Token 	#av/300:TOK:300
 	if [ ${#Token} -eq 0 ]; then
 		echo "Token is not found"
-		sleep 5 
+		sleep 1 
 		continue
 	fi
+
+	rpis=$(grep -I TOK ${source}/* | wc -l)
+	if [ $rpis != $nrpi ]; then
+		echo "Token is insufficient:" $rpis ",expected:" $nrpi
+		sleep 1 
+		continue
+	fi
+	echo "Token(s) ready:" $rpis
 
 	Token=`echo $Token | cut -d':' -f1`
 	echo "Token:" $Token	#av/300 
