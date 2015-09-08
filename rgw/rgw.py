@@ -107,7 +107,7 @@ def rstart(path):
 	tok+=1
 
 	setTok(tok)
-	return resTok = "TOK:{0}".format(tok)
+	return "TOK:{0}".format(tok)
 
 def rstop():
 	log("stop...")
