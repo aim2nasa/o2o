@@ -65,6 +65,20 @@ def setup():
 
 	log("setup ok")
 
+def setTok(tok):
+        i=1
+        for k,v in children.items():
+                str= i,"-set token(",tok,") to (ip:",k,",port:",ports[k],")"
+                log(str)
+                try:
+                        children[k].token(tok)
+                except Exception,err:
+                        str=" >failed to call token,exception:",err
+                        log(str)
+                        return "EXCEPT:"+err
+
+        log("set token ok")
+
 def rstart(path):
 	global tok
 	log("record...")
@@ -90,10 +104,8 @@ def rstart(path):
 
 	log("record ok")
 	tok+=1
-	resTok = "TOK:{0}".format(tok) 
-	f=open("../raspberry/output/TOK{0}".format(tok),'w')
-	f.write(resTok)
-	f.close()
+
+	setTok(tok)
 	return resTok
 
 def rstop():

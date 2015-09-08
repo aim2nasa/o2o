@@ -4,7 +4,6 @@ sys.path.append('../rpc')
 
 import jsonrpc
 import subprocess
-import subprocess
 
 ip=subprocess.check_output('../raspberry/ip.sh',shell=True)
 print "local ip:",ip
@@ -16,6 +15,7 @@ server = jsonrpc.Server(
 
 #define procedures
 def echo(s):
+    subprocess.call('mkdir output',shell=True)
     return s
 
 def ip():
@@ -27,11 +27,18 @@ def recbegin():
 def recend():
 	return subprocess.check_output('./recEnd.sh',shell=True)	
 
+def token(tok):
+	resTok = "TOK:{0}".format(tok)
+        f=open("output/TOK{0}".format(tok),'w')
+        f.write(resTok)
+        f.close()
+
 #register procedures so they can be called via RPC
 server.register_function(echo)
 server.register_function(ip)
 server.register_function(recbegin)
 server.register_function(recend)
+server.register_function(token)
 
 #start server
 server.serve()
