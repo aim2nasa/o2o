@@ -1,7 +1,6 @@
 *.pyc
 raspberry/eosLog
 raspberry/log
-raspberry/output/
 raspberry/queue/
 rgw/log
 *.log
