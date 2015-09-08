@@ -4,10 +4,14 @@ sys.path.append('../rpc')
 
 import jsonrpc
 import subprocess
+import subprocess
+
+ip=subprocess.check_output('../raspberry/ip.sh',shell=True)
+print "local ip:",ip
 
 server = jsonrpc.Server(
 		jsonrpc.JsonRpc20(),
-		jsonrpc.TransportTcpIp(addr=("192.168.219.124",7001),
+		jsonrpc.TransportTcpIp(addr=(ip,7001),
 		logfunc=jsonrpc.log_file("log")) )
 
 #define procedures
