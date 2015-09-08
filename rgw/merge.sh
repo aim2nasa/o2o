@@ -58,8 +58,16 @@ do
 
 	if [ $audios != $nrpi ]; then
 		echo "mp3 files not match:" $audios ",expected:" $nrpi
-		rm ${source}/${Token}_*
-		echo "Tokes are deleted"
+		sleep 1
+		continue
+	fi
+
+	videos=$(ls ${source} | grep mp4 | grep ${Token} | wc -l)
+	echo "mp4 files:" $videos
+
+	if [ $videos != $nrpi ]; then
+		echo "mp4 files not match:" $videos ",expected:" $nrpi
+		sleep 1
 		continue
 	fi
 
