@@ -76,6 +76,7 @@ def setTok(tok):
                         str=" >failed to call token,exception:",err
                         log(str)
                         return "EXCEPT:"+err
+		i+=1
 
         log("set token ok")
 
@@ -106,7 +107,7 @@ def rstart(path):
 	tok+=1
 
 	setTok(tok)
-	return resTok
+	return resTok = "TOK:{0}".format(tok)
 
 def rstop():
 	log("stop...")

@@ -32,6 +32,7 @@ def token(tok):
         f=open("output/TOK{0}".format(tok),'w')
         f.write(resTok)
         f.close()
+	print resTok
 
 #register procedures so they can be called via RPC
 server.register_function(echo)
