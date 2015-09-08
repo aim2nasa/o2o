@@ -15,21 +15,23 @@ if [ ! -d "$target" ]; then
 	mkdir $target
 fi
 
-grep -I TOK ${source}/*
-Token=$(grep -I TOK ${source}/*)
-echo "Token:" $Token 	#av/300:TOK:300
-
-Token=`echo $Token | cut -d':' -f1`
-echo "Token:" $Token	#av/300 
-
-Token=`echo $Token | cut -d'/' -f2`
-echo "Token:" $Token	#300 
-
-#ls ${source} | grep mp3 | grep $Token	#300_a_192.168.219.39.mp3
-#ls ${source} | grep mp4 | grep $Token	#300_v_192.168.219.39.mp3
-
 while :
 do
+	grep -I TOK ${source}/*
+	Token=$(grep -I TOK ${source}/*)
+	echo "Token:" $Token 	#av/300:TOK:300
+	if [ ${#Token} -eq 0 ]; then
+		echo "Token is not found"
+		sleep 5 
+		continue
+	fi
+
+	Token=`echo $Token | cut -d':' -f1`
+	echo "Token:" $Token	#av/300 
+
+	Token=`echo $Token | cut -d'/' -f2`
+	echo "Token:" $Token	#300 
+
 	for files in `ls ${source} | grep mp3 | grep $Token`; do
 		echo "files=" $files	#300_a_192.168.219.39.mp3
 		IP=`echo $files | cut -d'_' -f3`
