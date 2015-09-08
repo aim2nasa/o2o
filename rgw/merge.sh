@@ -53,8 +53,11 @@ do
 	Token=`echo $Token | cut -d'_' -f1`
 	echo "Final Token:" $Token	#1
 
-	audios=$(ls ${source} | grep mp3 | grep ${Token} | wc -l)
+	audios=$(ls ${source} | grep mp3 | grep ${Token}_a_ | wc -l)
 	echo "mp3 files:" $audios 
+	for files in `ls ${source} | grep mp3 | grep ${Token}_a_`; do
+		echo "mp3: " $files
+	done
 
 	if [ $audios != $nrpi ]; then
 		echo "mp3 files not match:" $audios ",expected:" $nrpi
@@ -62,8 +65,11 @@ do
 		continue
 	fi
 
-	videos=$(ls ${source} | grep mp4 | grep ${Token} | wc -l)
+	videos=$(ls ${source} | grep mp4 | grep ${Token}_v_ | wc -l)
 	echo "mp4 files:" $videos
+	for files in `ls ${source} | grep mp4 | grep ${Token}_v_`; do
+		echo "mp4: " $files
+	done
 
 	if [ $videos != $nrpi ]; then
 		echo "mp4 files not match:" $videos ",expected:" $nrpi
@@ -88,7 +94,7 @@ do
 		mv ${source}/${Token}_${IP}.mp4 ${target}
 		rm ${source}/${Token}_v_${IP}.mp4
 		rm ${source}/${Token}_a_${IP}.mp3
-		rm ${source}/${Token}_*
+		rm ${source}/${Token}_${IP}
 	done
 	sleep 1
 done
