@@ -44,3 +44,4 @@ sshpass -p789456 scp -o StrictHostKeyChecking=no queue/${token} rossi@192.168.21
 
 rm queue/${afile}
 rm queue/${vfile}
+rm queue/${token}
